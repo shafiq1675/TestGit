@@ -1,0 +1,175 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    //<script src="~/Scripts/moment-with-locales.js"></script>
+    //<script src="~/Scripts/moment-with-locales.min.js"></script>
+    //<script src="~/Scripts/moment.js"></script>
+
+
+}
+
+
+<div>
+    <table cellpadding="1" cellspacing="1" class="table table-striped" style="overflow-x: scroll; width :1000px" id="exampel">
+        <thead>
+
+            <tr>
+                @foreach (System.Data.DataColumn col in Model.Columns)
+                {
+                    <th>@col.Caption</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (System.Data.DataRow row in Model.Rows)
+            {
+                <tr>
+                    @foreach (var cell in row.ItemArray)
+                    {
+                        <td>@cell.ToString()</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <input type="text" id="showDateforOmuk" value="" />
+</div>
+<div>
+    <input type="text" id="customerId" placeholder="autocomplete asdf" onblur="return autoCompleteCheck()" />
+
+</div>
+<div>
+    <input type="button" id="tags" onclick="return autoCompleteCheck()" />
+</div>
+
+<script src="~/Scripts/moment.min.js"></script>
+<script src="~/Scripts/jquery-3.2.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+<link href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="Stylesheet" > </link>
+<script src="YourJquery source path"></script>
+<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+<script>
+    //var topics = [];
+    @*getDataforAutoComplete();
+    function getDataforAutoComplete() {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetAutocompleteData", "Home")',
+            data: "",
+            contentType: 'application/json;charset=utf-8',
+            dataType: 'json',
+            cachce: false,
+            success: function (data) {
+                $.each(data, function (key, item) {
+                    alert(item.Value);
+                    topics.push(new Array(Name = item.Display, ID = item.Value))
+                    alert(topics.length);
+
+                });
+            },
+            error: function (ex) {
+
+            }
+        });
+    }*@
+
+    function autoCompleteCheck() {
+        //Salert("hi");
+
+        var availableTags = [
+     "ActionScript",
+     "AppleScript",
+     "Asp",
+     "BASIC",
+     "C",
+     "C++",
+     "Clojure",
+     "COBOL",
+     "ColdFusion",
+     "Erlang",
+     "Fortran",
+     "Groovy",
+     "Haskell",
+     "Java",
+     "JavaScript",
+     "Lisp",
+     "Perl",
+     "PHP",
+     "Python",
+     "Ruby",
+     "Scala",
+     "Scheme"
+        ];
+        $("#tags").autocomplete({
+            source: availableTags
+        });
+    }
+
+
+    @*$(function () {
+        //$("#cusID").autocomplete({
+        //    minLength: 0,
+        //    source: topics,
+        //    focus: function (event, ui) {
+        //        $("#cusID").val(ui.item.label);
+        //        alert(ui.item.label);
+        //        return false;
+        //    },
+        //    select: function (event, ui) {
+        //        alert(ui.item.id);
+        //        return false;
+        //    }
+        //})
+
+        $("#customerId").autocomplete({
+            source: function (request, response) {
+                //$.ajax({
+                //    url: "/Home/GetCountries",
+                //    type: "POST",
+                //    dataType: "json",
+                //    data: { Prefix: request.term },
+                //    success: function (data) {
+                //        response($.map(data, function (item) {
+                //            return { label: item.Name, value: item.Name };
+                //        }))
+
+                //    }
+                //})
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GetAutocompleteData", "Home")',
+                    data: "",
+                    contentType: 'application/json;charset=utf-8',
+                    dataType: 'json',
+                    cachce: false,
+                    success: function (data) {
+                        response($.map(data, function (item) {
+                            return { label: item.Name, value: item.Name };
+                        }))
+                    },
+                    error: function (ex) {
+                        alert(ex);
+                    }
+                });
+            },
+            messages: {
+                noResults: "",
+                results: function (count) {
+                    return count + (count > 1 ? ' results' : ' result ') + ' found';
+                }
+            }
+        });
+    })*@
+
+
+
+
+    var now = moment(522335233552);
+    alert(now.format("DD-MMM-YYYY"))
+    $("#showDateforOmuk").val(now.format("DD-MMM-YYYY"));
+
+
+
+
+</script>
